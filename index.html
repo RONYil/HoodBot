@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoodBot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(90deg, #4CAF50, #388E3C);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 1em;
+        }
+
+        nav {
+            background: #333;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 5px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+            margin: 5px 5px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        nav a:hover {
+            background: #575757;
+            border-radius: 5px;
+            transform: scale(1.1);
+        }
+
+        .container {
+            padding: 15px;
+            max-width: 100%;
+            margin: 10px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: #388E3C;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+            font-size: 1.8em;
+        }
+
+        .section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section ul li {
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .section ul li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-image {
+            width: 100%;
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .event-header {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .event-header strong {
+            font-size: 1.3em;
+            color: #4CAF50;
+        }
+
+        .event-header span {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.85em;
+            color: #777;
+        }
+
+        .event-description {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 15px;
+            margin-top: 15px;
+            font-size: 0.8em;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .event-form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        .event-form input,
+        .event-form textarea,
+        .event-form select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .event-form button {
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .event-form button:hover {
+            background: #388E3C;
+            transform: scale(1.05);
+        }
+
+        .remove-btn {
+            background: #e53935;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HoodBot</h1>
+        <p>Where Bold Neighbors Need Help</p>
+    </header>
+
+    <nav>
+        <a href="#gardening">Gardening</a>
+        <a href="#events">Events</a>
+        <a href="#environment">Environment</a>
+        <a href="#animals">Animals</a>
+        <a href="#help">Neighbors Need Help</a>
+    </nav>
+
+    <div class="container">
+        <section id="event-form" class="event-form">
+            <h2>Add a New Event</h2>
+            <form id="addEventForm">
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" name="eventName" placeholder="Enter the event name" required>
+
+                <label for="eventDate">Event Date:</label>
+                <input type="date" id="eventDate" name="eventDate" required>
+
+                <label for="eventTime">Event Time:</label>
+                <input type="time" id="eventTime" name="eventTime" required>
+
+                <label for="eventDescription">Description:</label>
+                <textarea id="eventDescription" name="eventDescription" placeholder="Describe the event" required></textarea>
+
+                <label for="eventCategory">Category:</label>
+                <select id="eventCategory" name="eventCategory" required>
+                    <option value="gardening">Gardening</option>
+                    <option value="events">Events</option>
+                    <option value="environment">Environment</option>
+                    <option value="animals">Animals</option>
+                    <option value="help">Neighbors Need Help</option>
+                </select>
+
+                <label for="eventPublisher">Publisher:</label>
+                <input type="text" id="eventPublisher" name="eventPublisher" placeholder="Enter your name" required>
+
+                <label for="eventImage">Upload Image:</label>
+                <input type="file" id="eventImage" name="eventImage" accept="image/*">
+
+                <button type="submit">Add Event</button>
+            </form>
+        </section>
+
+        <section id="gardening" class="section">
+            <h2>Gardening</h2>
+            <ul></ul>
+        </section>
+
+        <section id="events" class="section">
+            <h2>Events</h2>
+            <ul></ul>
+        </section>
+
+        <section id="environment" class="section">
+            <h2>Environment</h2>
+            <ul></ul>
+        </section>
+
+        <section id="animals" class="section">
+            <h2>Animals</h2>
+            <ul></ul>
+        </section>
+
+        <section id="help" class="section">
+            <h2>Neighbors Need Help</h2>
+            <ul></ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 HoodBot Initiative</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('addEventForm');
+            const apiUrl = 'https://hoodbot-server-1.onrender.com/api/events'; // 后端 API 地址 
+
+            // 加载事件数据
+            loadEventsFromServer();
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const eventName = document.getElementById('eventName').value;
+                const eventDate = document.getElementById('eventDate').value;
+                const eventTime = document.getElementById('eventTime').value;
+                const eventDescription = document.getElementById('eventDescription').value;
+                const eventCategory = document.getElementById('eventCategory').value;
+                const eventPublisher = document.getElementById('eventPublisher').value;
+                const eventImageFile = document.getElementById('eventImage').files[0];
+
+                let imageUrl = '';
+                if (eventImageFile) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imageUrl = e.target.result;
+                        const newEvent = {
+                            name: eventName,
+                            date: eventDate,
+                            time: eventTime,
+                            description: eventDescription,
+                            category: eventCategory,
+                            publisher: eventPublisher,
+                            imageUrl: imageUrl,
+                        };
+
+                        saveEventToServer(newEvent);
+                        form.reset(); // 重置表单
+                    };
+                    reader.readAsDataURL(eventImageFile);
+                } else {
+                    const newEvent = {
+                        name: eventName,
+                        date: eventDate,
+                        time: eventTime,
+                        description: eventDescription,
+                        category: eventCategory,
+                        publisher: eventPublisher,
+                        imageUrl: imageUrl,
+                    };
+                    saveEventToServer(newEvent);
+                    form.reset(); // 重置表单
+                }
+            });
+
+            // 获取事件数据
+            function loadEventsFromServer() {
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(events => {
+                        events.forEach(event => {
+                            displayEvent(event);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching events:', error));
+            }
+
+            // 提交事件数据到后端
+            function saveEventToServer(newEvent) {
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newEvent),
+                })
+                    .then(response => response.json())
+                    .then(event => {
+                        displayEvent(event);
+                    })
+                    .catch(error => console.error('Error saving event:', error));
+            }
+
+            // 显示事件
+            function displayEvent(event) {
+                const { id, name, date, time, description, category, publisher, imageUrl } = event;
+                const section = document.querySelector(`#${category} ul`);
+                const newEvent = document.createElement('li');
+
+                const imgElement = imageUrl ? `<img src="${imageUrl}" alt="Event Image" class="event-image">` : '';
+                newEvent.innerHTML = `
+                    <div class="event-content">
+                        ${imgElement}
+                        <div class="event-header">
+                            <strong>${name}</strong>
+                            <span>Posted by: ${publisher} | ${date} ${time}</span>
+                        </div>
+                        <div class="event-description">${description}</div>
+                        <button class="remove-btn" data-id="${id}">Remove</button>
+                    </div>
+                `;
+
+                section.appendChild(newEvent);
+
+                // 为“移除”按钮添加事件监听
+                const removeBtn = newEvent.querySelector('.remove-btn');
+                removeBtn.addEventListener('click', function () {
+                    const eventId = removeBtn.getAttribute('data-id'); // 获取事件 ID
+                    removeEventFromServer(eventId, newEvent);
+                });
+            }
+
+            // 删除事件
+            function removeEventFromServer(eventId, eventElement) {
+                fetch(`${apiUrl}/${eventId}`, {
+                    method: 'DELETE',
+                })
+                    .then(() => {
+                        eventElement.remove(); // 从页面中移除事件元素
+                    })
+                    .catch(error => console.error('Error removing event:', error));
+            }
+        });
+
+
+    </script>
+</body>
+</html>
